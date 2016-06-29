@@ -1,0 +1,4 @@
+alias ll="ls -al"
+alias set_timezone="DEBIAN_FRONTEND=teletype dpkg-reconfigure tzdata"
+
+cd /work
