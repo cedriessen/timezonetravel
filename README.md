@@ -13,7 +13,7 @@ code in different timezones.
     $ make image  
 
 This creates an image named `timezonetravel`.
-To remove the image from you docker host again use
+To remove the image from your docker host again use
 
     $ make clean
 
