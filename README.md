@@ -22,7 +22,7 @@ To remove the image from you docker host again use
         
 Learn how to travel with        
         
-    $ ./travel.sh -h
+    $ ./tztravel -h
 
 
         

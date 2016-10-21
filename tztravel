@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+print_help() {
+echo '
+usage: tztravel [<option>] [<mount_directory>]
+
+    -c, --continent     Continent number.
+    -r, --region        Region number.
+    --edt               Travel to US/Eastern EDT time zone.
+                        Exclusive argument.
+    --pdt               Travel to US/Pacific PDT time zone.
+                        Exclusive argument.
+
+    mount_directory     The directory to mount into the container.
+                        Defaults to the current directory.
+'
+}
+
+# mount current directory by default
+mount=$(PWD)
+
+# parse args
+for arg in "$@"; do
+  case $arg in
+    --edt)
+      continent=12
+      region=5
+      shift
+      ;;
+    --pdt)
+      continent=12
+      region=10
+      shift
+      ;;
+    --continent|-c)
+      continent=$2
+      shift; shift
+      ;;
+    --region|-r)
+      region=$2
+      shift; shift
+      ;;
+    --help|-h)
+      print_help
+      exit 0;
+      ;;
+    *)
+      mount=$1
+      shift
+      ;;
+  esac
+done
+
+# run the container & mount the local maven repository
+docker run \
+  -it --rm \
+  --env TZ_CONTINENT=$continent \
+  --env TZ_REGION=$region \
+  -v $mount:/work \
+  -v ~/.m2:/root/.m2 \
+  timezonetravel
